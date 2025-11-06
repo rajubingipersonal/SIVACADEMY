@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional IT Academy - Engineer Your Future</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #0A2463;
+            --teal: #1B4965;
+            --sky-blue: #3DA5D9;
+            --electric-green: #2DD881;
+            --white: #FFFFFF;
+            --light-gray: #F5F7FA;
+            --text-dark: #1A202C;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--navy);
+            cursor: pointer;
+        }
+
+        .logo span {
+            color: var(--sky-blue);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--sky-blue);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: var(--navy);
+        }
+
+        /* Page Container */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--teal) 100%);
+            color: var(--white);
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero h2 {
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--electric-green);
+            color: var(--navy);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(45, 216, 129, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--navy);
+            transform: translateY(-3px);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--teal) 100%);
+            color: var(--white);
+            padding: 4rem 2rem 3rem;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Sections */
+        .value-props, .featured-courses, .content-section {
+            padding: 5rem 2rem;
+            background: var(--light-gray);
+        }
+
+        .featured-courses {
+            background: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--navy);
+            margin-bottom: 3rem;
+        }
+
+        .pillars {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .pillar {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .pillar:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .pillar-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--sky-blue), var(--electric-green));
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .pillar h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
+
+        .pillar p {
+            color: #4A5568;
+            line-height: 1.8;
+        }
+
+        .highlight-text {
+            background: linear-gradient(135deg, var(--electric-green), var(--sky-blue));
+            color: var(--white);
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            margin-top: 1rem;
+            display: inline-block;
+            font-size: 0.95rem;
+        }
+
+        /* Courses */
+        .filter-section {
+            max-width: 1200px;
+            margin: -2rem auto 3rem;
+            padding: 0 2rem;
+        }
+
+        .filter-container {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            border: 2px solid var(--light-gray);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--sky-blue);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.7rem 1.5rem;
+            border: 2px solid var(--light-gray);
+            background: var(--white);
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--sky-blue);
+            color: var(--white);
+            border-color: var(--sky-blue);
+        }
+
+        .courses-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .courses-grid, .courses-carousel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .course-card {
+            background: var(--white);
+            border: 2px solid var(--light-gray);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--sky-blue), var(--electric-green));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .course-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .course-card:hover {
+            border-color: var(--sky-blue);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+        }
+
+        .ai-badge {
+            display: inline-block;
+            background: var(--electric-green);
+            color: var(--navy);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .course-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
+
+        .course-card p {
+            color: #4A5568;
+            margin-bottom: 1.5rem;
+        }
+
+        .course-meta {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: #718096;
+        }
+
+        .partners {
+            padding: 4rem 2rem;
+            background: var(--light-gray);
+            text-align: center;
+        }
+
+        .partners h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 2rem;
+        }
+
+        .partner-logos {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 3rem;
+        }
+
+        .partner-logo {
+            background: var(--white);
+            padding: 1.5rem 2.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            color: var(--teal);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1, .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="showPage('home')">Professional<span>IT</span></div>
+            <ul class="nav-links">
+                <li><a onclick="showPage('home')" class="active" data-page="home">Home</a></li>
+                <li><a onclick="showPage('courses')" data-page="courses">Courses</a></li>
+                <li><a onclick="showPage('about')" data-page="about">About</a></li>
+                <li><a onclick="showPage('careers')" data-page="careers">Career Success</a></li>
+                <li><a onclick="showPage('admissions')" data-page="admissions">Admissions</a></li>
+                <li><a onclick="showPage('contact')" data-page="contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HOME PAGE -->
+    <div id="home" class="page active">
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Engineer Your Future: From Classroom to Career with AI-Powered Expertise</h1>
+                <h2>Master the latest trending technologies. Gain <strong>real-world experience</strong> in our Virtual IT Office. Secure your <strong>high-growth IT career</strong>.</h2>
+                <div class="cta-buttons">
+                    <button class="btn btn-primary" onclick="showPage('courses')">Explore AI-Enabled Courses</button>
+                    <button class="btn btn-secondary">Download Career Brochure</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="value-props">
+            <h2 class="section-title">Your Path to IT Success</h2>
+            <div class="pillars">
+                <div class="pillar">
+                    <div class="pillar-icon">🤖</div>
+                    <h3>Latest Skills (AI-Enabled)</h3>
+                    <p>Training in trending technologies including Full Stack, DevOps, and Data Science with a deep focus on <strong>Generative AI integration</strong> and cutting-edge tools that power today's tech industry.</p>
+                    <p class="highlight-text">✓ Hands-On Real Product Development</p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-icon">💼</div>
+                    <h3>Real-World Experience</h3>
+                    <p>Our proprietary <strong>Virtual IT Office Ecosystem</strong> provides documented contractual experience covering complete SDLC/STLC processes, DevOps pipelines, and professional HR procedures.</p>
+                    <p class="highlight-text">✓ Guaranteed Fixed-Term Contractual Placement</p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-icon">🚀</div>
+                    <h3>Placement Focus</h3>
+                    <p>Dedicated job assistance with resume building, mock interviews, and a proven track record of placing students in top-tier companies. Your success is our mission.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-courses">
+            <h2 class="section-title">Featured AI-Enabled Programs</h2>
+            <div class="courses-carousel">
+                <div class="course-card">
+                    <span class="ai-badge">AI INTEGRATED</span>
+                    <h3>Full Stack Development with GenAI</h3>
+                    <p>Master modern web development with React, Node.js, and AI-powered tools.</p>
+                    <div class="course-meta">
+                        <span>⏱️ 6 Months</span>
+                        <span>📊 All Levels</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="showPage('courses')">View Course</button>
+                </div>
+                <div class="course-card">
+                    <span class="ai-badge">AI INTEGRATED</span>
+                    <h3>DevOps & Cloud with AI Automation</h3>
+                    <p>Learn CI/CD, Docker, Kubernetes, AWS/Azure with AI-driven automation.</p>
+                    <div class="course-meta">
+                        <span>⏱️ 5 Months</span>
+                        <span>📊 Intermediate</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="showPage('courses')">View Course</button>
+                </div>
+                <div class="course-card">
+                    <span class="ai-badge">AI INTEGRATED</span>
+                    <h3>Data Science & ML Engineering</h3>
+                    <p>Deep dive into machine learning and AI model deployment.</p>
+                    <div class="course-meta">
+                        <span>⏱️ 7 Months</span>
+                        <span>📊 Advanced</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="showPage('courses')">View Course</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="partners">
+            <h2>Our Alumni Work At Leading Organizations</h2>
+            <div class="partner-logos">
+                <div class="partner-logo">Global Tech Solutions</div>
+                <div class="partner-logo">FinTech Innovators</div>
+                <div class="partner-logo">Cloud Systems Inc</div>
+                <div class="partner-logo">AI Dynamics</div>
+                <div class="partner-logo">DataCore Analytics</div>
+                <div class="partner-logo">Digital Pioneers</div>
+            </div>
+        </section>
+    </div>
+
+    <!-- COURSES PAGE -->
+    <div id="courses" class="page">
+        <section class="page-header">
+            <h1>Our AI-Enabled Programs</h1>
+            <p>Transform your career with industry-relevant, AI-powered training</p>
+        </section>
+
+        <section class="filter-section">
+            <div class="filter-container">
+                <div class="search-box">
+                    <input type="text" placeholder="🔍 Search courses...">
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active">All Courses</button>
+                    <button class="filter-btn">Beginner</button>
+                    <button class="filter-btn">Intermediate</button>
+                    <button class="filter-btn">Advanced</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="courses-section">
+            <div class="courses-grid">
+                <div class="course-card">
+                    <span class="ai-badge">AI INTEGRATED</span>
+                    <h3>Full Stack Development with GenAI</h3>
+                    <p>React.js, Node.js, Express, MongoDB, AI-powered tools</p>
+                    <div class="course-meta">
+                        <span>⏱️ 6 Months</span>
+                        <span>📚 15+ Projects</span>
+                    </div>
+                    <button class="btn btn-primary">Enroll Now</button>
+                </div>
+                <div class="course-card">
+                    <span class="ai-badge">AI INTEGRATED</span>
+                    <h3>DevOps & Cloud with AI Automation</h3>
+                    <p>Docker, Kubernetes, AWS/Azure, CI/CD, AI monitoring</p>
+                    <div class="course-meta">
+                        <span>⏱️ 5 Months</span>
+                        <span>📚 12+ Projects</span>
+                    </div>
+                    <button class="btn btn-primary">Enroll Now</button>
+                </div>
+                <div class="course-card">
+                    <span class="ai-badge">AI INTEGRATED</span>
+                    <h3>Data Science & ML Engineering</h3>
+                    <p>Python, TensorFlow, PyTorch, NLP, Computer Vision</p>
+                    <div class="course-meta">
+                        <span>⏱️ 7 Months</span>
+                        <span>📚 20+ Projects</span>
+                    </div>
+                    <button class="btn btn-primary">Enroll Now</button>
+                </div>
+                <div class="course-card">
+                    <span class="ai-badge">AI INTEGRATED</span>
+                    <h3>AI & Automation Testing</h3>
+                    <p>Selenium, Cypress, API testing, AI test generation</p>
+                    <div class="course-meta">
+                        <span>⏱️ 4 Months</span>
+                        <span>📚 10+ Projects</span>
+                    </div>
+                    <button class="btn btn-primary">Enroll Now</button>
+                </div>
+                <div class="course-card">
+                    <span class="ai-badge">AI INTEGRATED</span>
+                    <h3>Cybersecurity with AI Defense</h3>
+                    <p>Ethical hacking, Network security, AI threat detection</p>
+                    <div class="course-meta">
+                        <span>⏱️ 6 Months</span>
+                        <span>📚 14+ Projects</span>
+                    </div>
+                    <button class="btn btn-primary">Enroll Now</button>
+                </div>
+                <div class="course-card">
+                    <span class="ai-badge">AI INTEGRATED</span>
+                    <h3>Blockchain & Web3 Development</h3>
+                    <p>Ethereum, Solidity, Smart Contracts, DeFi, NFTs</p>
+                    <div class="course-meta">
+                        <span>⏱️ 5 Months</span>
+                        <span>📚 12+ Projects</span>
+                    </div>
+                    <button class="btn btn-primary">Enroll Now</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ABOUT PAGE -->
+    <div id="about" class="page">
+        <section class="page-header">
+            <h1>Academy & Startup</h1>
+            <p>Bridging Academia and Industry through Innovation</p>
+        </section>
+        <section class="content-section">
+            <h2 class="section-title">Our Mission & Vision</h2>
+            <div class="pillars">
+                <div class="pillar">
+                    <div class="pillar-icon">🎯</div>
+                    <h3>Our Vision</h3>
+                    <p>To become the leading bridge between academic learning and industry excellence, creating IT professionals ready to excel from day one.</p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-icon">🚀</div>
+                    <h3>Our Mission</h3>
+                    <p>Transform engineering talent into efficient, day-one contributors through AI-powered training and real Virtual IT Office experience.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- CAREERS PAGE -->
+    <div id="careers" class="page">
+        <section class="page-header">
+            <h1>Career Success</h1>
+            <p>Measurable outcomes. Real placements. Your future starts here.</p>
+        </section>
+        <section class="content-section">
+            <h2 class="section-title">Placement Success Stories</h2>
+            <p style="text-align: center; color: #4A5568;">Content coming soon...</p>
+        </section>
+    </div>
+
+    <!-- ADMISSIONS PAGE -->
+    <div id="admissions" class="page">
+        <section class="page-header">
+            <h1>Admissions</h1>
+            <p>Begin your journey to IT excellence</p>
+        </section>
+        <section class="content-section">
+            <h2 class="section-title">How to Apply</h2>
+            <p style="text-align: center; color: #4A5568;">Content coming soon...</p>
+        </section>
+    </div>
+
+    <!-- CONTACT PAGE -->
+    <div id="contact" class="page">
+        <section class="page-header">
+            <h1>Contact Us</h1>
+            <p>Get in touch with our expert team</p>
+        </section>
+        <section class="content-section">
+            <h2 class="section-title">Reach Out Today</h2>
+            <p style="text-align: center; color: #4A5568;">Content coming soon...</p>
+        </section>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update nav active state
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-page') === pageId) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Navbar shadow on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)';
+            } else {
+                navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            }
+        });
+    </script>
+</body>
+</html>
